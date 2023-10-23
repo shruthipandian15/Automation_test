@@ -259,7 +259,7 @@ test('BUYING A PHONE WITH BUDBEE ALONG APPLE TV', async ({ page }) => {
 });
 
 
-test('BUYING A ANDRIOD PHONE WITH E-SIM', async ({ page }) => {
+test('BUYING A ANDRIOD PHONE WITH (E-SIM)', async ({ page }) => {
 
 
     // Create an instance and initialize it here
@@ -324,6 +324,7 @@ test('BUYING A SUBSCRIPTION WITH APPLE TV(TRIO_SIM)', async ({ page }) => {
     await productdetailpage.subcription_check();
     await productdetailpage.Esim_No_click();
     await productdetailpage.moveon_click();
+    await crosssalepage.appletv_click();
     await crosssalepage.moveon_cross_click();
     await numberpage.new_number_check();
     await numberpage.next_click();
