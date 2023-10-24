@@ -10,6 +10,8 @@ import { Deliverypage } from '../pages/delivery_page';
 import { Checkoutpage } from '../pages/checkout_page';
 import { Thankyoupage } from '../pages/thankyou_page';
 import { Subscriptionpage } from '../pages/mobilesubscription_page';
+import { Broadbandpage } from '../pages/broadband_page';
+import {Broadpdppage} from '../pages/broad_pdppage';
 
 //Assigning a variable
 const URL = 'https://stage.webtest.tre.se/';
@@ -23,6 +25,8 @@ let deliverypage: Deliverypage;
 let checkoutpage: Checkoutpage;
 let thankyoupage: Thankyoupage;
 let subscriptionpage: Subscriptionpage;
+let broadbandpage:Broadbandpage;
+let broadpdppage:Broadpdppage;
 
 
 
@@ -162,7 +166,30 @@ async function e_sim_qr_verify_visibile(page: Page) {
     await thankyoupage.e_sim_qr_verify_visibile();
 
 }
-
+async function broadband_click(page:Page){
+      //await page.getByRole('link', { name: 'Bredband' }).click();
+      await homepage.broadband_click();
+}
+async function click_address(page:Page){
+    //await page.getByPlaceholder('ex, Storgatan 3, Stockholm').click();
+    await broadbandpage.click_address();
+}
+async function  fill_address(page:Page){
+    //await page.getByPlaceholder('ex, Storgatan 3, Stockholm').fill('petunievägen 15');
+    await broadbandpage.fill_address();
+}
+async function select_address(){
+     //  await page.getByRole('option', { name: 'Petunievägen 15, 14649 Tullinge' }).click();
+    await broadbandpage.select_address();
+}
+async function select_newbroadband (){
+    //await page.getByLabel('Skaffa ett nytt bredband').check();
+   await broadpdppage.select_newbroadband();
+}
+async function select_router(){
+    //await page.getByLabel('Zyxel NR5103e0 kr/mån').check();
+    await broadpdppage.select_router();
+}
 
 
 
@@ -340,6 +367,44 @@ test('BUYING A SUBSCRIPTION WITH APPLE TV(TRIO_SIM)', async ({ page }) => {
     await checkoutpage.complete_purchase_click();
 
     await page.goto('https://stage.webtest.tre.se/handla/orderbekraftelse?a=sLKI8QL_JYtrrYh1kQ51PA%3D%3D&bt=pp&b=nb&o=n&stg=HIDE&offerId=v35bw4X18OpOA06O9xN-Ew1M4X0i-3dKfu56u0rPUl6To38KQSzpbDCwR_Ln9WHYiv&sct=TRIOSIM&exu=0&oa=1&st=VOICE')
+
+
+});
+
+
+
+test('BUYING A BROADBAND WITH ROUTER', async ({ page }) => {
+
+
+    // Create an instance and initialize it here
+
+    broadbandpage =new Broadbandpage(page);
+    broadpdppage= new Broadpdppage(page);
+    productdetailpage = new Productdetailpage(page);
+    informationpage = new Informationpage(page);
+    deliverypage = new Deliverypage(page);
+    checkoutpage = new Checkoutpage(page);
+   
+
+    await homepage.cookies_click();
+    await homepage.broadband_click();
+    await broadbandpage.click_address();
+    await broadbandpage.fill_address();
+    await broadbandpage.select_address();
+    await broadpdppage.select_newbroadband();
+    await broadpdppage.select_router();
+    await productdetailpage.moveon_click();
+    await informationpage.personal_number_click();
+    await informationpage.personalnumber_fill();
+    await informationpage.email_click();
+    await informationpage.email_fill();
+    await informationpage.contactnumber_click();
+    await informationpage.contactnumber_fill();
+    await informationpage.next_info_click();
+    await deliverypage.next_Delivery_click();
+    await checkoutpage.terms_click();
+    await checkoutpage.complete_purchase_click();
+    await page.goto('https://stage.webtest.tre.se/handla/orderbekraftelse?bt=b&o=n&offerId=v3CRrOhHO5K8Ztww_lT8BCK38oBfEpW2pziXZDT-aYTazN_z3SJLvDBXDrT4o65XhMuPEvD_sSeeAmnWtSzUScoQ%3D%3D&ot=HARD_BUNDLE&exu=0&oa=1&st=DATA')
 
 
 });
